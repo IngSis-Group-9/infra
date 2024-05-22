@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  code-processing:
+    build:
+      context: ./code-processing
+    ports:
+      - "8080:8080"
+    environment:
+      - ENV_VAR=dev
+
+  user-auth:
+    build:
+      context: ./user-auth
+    ports:
+      - "8081:8081"
+    environment:
+      - ENV_VAR=dev
+
+  snippet-manager:
+    build:
+      context: ./snippet-manager
+    ports:
+      - "8082:8082"
+    environment:
+      - ENV_VAR=dev
