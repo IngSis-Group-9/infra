@@ -3,7 +3,7 @@ services:
 
   snippet-manager:
     container_name: "snippet-manager-infra"
-    image: ghcr.io/ingsis-group-9/snippet-manager:7313366b
+    image: ghcr.io/ingsis-group-9/snippet-manager:latest
     environment:
        DB_URL: jdbc:postgresql://snippet-manager-db:5432/snippet-manager
        DB_USERNAME: postgres
