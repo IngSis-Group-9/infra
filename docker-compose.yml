@@ -24,5 +24,12 @@ services:
     volumes:
       - snippet-manager-data:/var/lib/postgresql/data
 
+
+  printscript-ui:
+    container_name: "printscript-ui"
+    image: ghcr.io/ingsis-group-9/printscript-ui-dev:latest
+    ports:
+      - "80:80"
+
 volumes:
   snippet-manager-data:
