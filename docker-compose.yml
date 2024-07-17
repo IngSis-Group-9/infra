@@ -4,12 +4,13 @@ services:
   snippet-manager:
     container_name: "snippet-manager-infra"
     image: ghcr.io/ingsis-group-9/snippet-manager:latest
+    ports:
+      - 8083:8083
     environment:
        DB_URL: jdbc:postgresql://snippet-manager-db:5432/snippet-manager
        DB_USERNAME: postgres
        DB_PASSWORD: postgres
-    expose:
-      - "8083"
+
 
   snippet-manager-db:
     container_name: "snippet-manager-infra-db"
