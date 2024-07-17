@@ -21,3 +21,8 @@ services:
       - POSTGRES_PASSWORD=postgres
     ports:
       - "5435:5432"
+    volumes:
+      - snippet-manager-data:/var/lib/postgresql/data
+
+volumes:
+  snippet-manager-data:
