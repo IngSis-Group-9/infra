@@ -4,7 +4,6 @@ on:
     branches:
       - dev
 
-
 jobs:
   update_infra:
     name: Update Infra
@@ -18,6 +17,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd ~/projects/infra
-            docker compose stop
+            docker-compose stop
             git pull
-            docker compose up -d --build
+            docker-compose up -d --build
