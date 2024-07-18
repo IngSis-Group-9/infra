@@ -4,6 +4,7 @@ on:
     branches:
       - dev
 
+
 jobs:
   update_infra:
     name: Update Infra
