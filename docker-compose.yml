@@ -65,7 +65,7 @@ services:
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
-    command: certonly --webroot -w /var/www/certbot/ -d nueve-de-diciembre-dev.duckdns.org --force-renewal --email pedro.schmidt@ing.austral.edu.ar --agree-tos
+    command: certonly --webroot -w /var/www/certbot/ --force-renewal --email pedro.schmidt@ing.austral.edu.ar -d nueve-de-diciembre-dev.duckdns.org --agree-tos
 
 
 volumes:
