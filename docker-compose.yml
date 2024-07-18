@@ -4,32 +4,46 @@ services:
   snippet-manager:
     container_name: "snippet-manager-infra"
     image: ghcr.io/ingsis-group-9/snippet-manager:latest
-    ports:
-      - 8083:8083
     environment:
        DB_URL: jdbc:postgresql://snippet-manager-db:5432/snippet-manager
        DB_USERNAME: postgres
        DB_PASSWORD: postgres
+    expose:
+      - "8083"
 
 
   snippet-manager-db:
     container_name: "snippet-manager-infra-db"
     image: postgres
+    ports:
+      - "5435:5432"
     environment:
       - POSTGRES_DB=snippet-manager
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-    ports:
-      - "5435:5432"
     volumes:
       - snippet-manager-data:/var/lib/postgresql/data
+    expose:
+      - "5432"
 
 
   printscript-ui:
     container_name: "printscript-ui"
     image: ghcr.io/ingsis-group-9/printscript-ui-dev:latest
+    expose:
+      - "80"
+
+
+  nginx-proxy:
+    container_name: "nginx-proxy"
+    image: nginx
     ports:
       - "80:80"
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d:ro
+    depends_on:
+      - snippet-manager
+      - snippet-manager-db
 
 volumes:
   snippet-manager-data:
