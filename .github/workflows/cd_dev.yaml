@@ -1,0 +1,22 @@
+name: "Continuous Deployment"
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  update_infra:
+    name: Update Infra
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update and Restart Infra
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VM_HOST_DEV }}
+          username: "azureuser"
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ~/projects/infra
+            docker compose stop
+            git pull
+            docker compose up -d --build
