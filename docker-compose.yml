@@ -41,9 +41,36 @@ services:
       - "80:80"
     volumes:
       - ./conf.d:/etc/nginx/conf.d:ro
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
     depends_on:
       - snippet-manager
       - snippet-manager-db
+      - duckdns
+
+
+  duckdns:
+    image: lscr.io/linuxserver/duckdns:latest
+    container_name: duckdns
+    environment:
+      - SUBDOMAINS=nueve-de-diciembre-dev
+      - TOKEN=23eecbcd-a8e2-4a39-abe1-343e03d002af
+    restart: unless-stopped
+
+
+  certbot:
+    container_name: "certbot"
+    image: certbot/certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: |
+      certonly --webroot -w /var/www/certbot/ \
+      -d nueve-de-diciembre-dev.duckdns.org \
+      --force-renewal \
+      --email pedro.schmidt@ing.austral.edu.ar \
+      --agree-tos
+
 
 volumes:
   snippet-manager-data:
