@@ -1,6 +1,7 @@
 
 services:
 
+
   snippet-manager:
     container_name: "snippet-manager-infra"
     image: ghcr.io/ingsis-group-9/snippet-manager:latest
