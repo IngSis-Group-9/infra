@@ -1,6 +1,21 @@
 
 services:
 
+  nginx-proxy:
+    container_name: "nginx-proxy"
+    image: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d:ro
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    depends_on:
+      - snippet-manager
+      - snippet-manager-db
+      - duckdns
+
 
   snippet-manager:
     container_name: "snippet-manager-infra"
@@ -33,22 +48,6 @@ services:
     image: ghcr.io/ingsis-group-9/printscript-ui-dev:latest
     expose:
       - "80"
-
-
-  nginx-proxy:
-    container_name: "nginx-proxy"
-    image: nginx
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./conf.d:/etc/nginx/conf.d:ro
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    depends_on:
-      - snippet-manager
-      - snippet-manager-db
-      - duckdns
 
 
   duckdns:
