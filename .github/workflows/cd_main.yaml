@@ -13,7 +13,7 @@ jobs:
       - name: Update and Restart Infra
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.VM_HOST_DEV }}
+          host: ${{ secrets.VM_HOST_PROD }}
           username: "azureuser"
           key: ${{ secrets.SSH_KEY_PROD }}
           script: |
