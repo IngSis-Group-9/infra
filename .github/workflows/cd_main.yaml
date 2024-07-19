@@ -2,7 +2,7 @@ name: "Continuous Deployment"
 on:
   push:
     branches:
-      - dev
+      - main
 
 
 jobs:
@@ -15,9 +15,9 @@ jobs:
         with:
           host: ${{ secrets.VM_HOST_DEV }}
           username: "azureuser"
-          key: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.SSH_KEY_PROD }}
           script: |
             cd ~/projects/infra
-            docker-compose -f docker-compose.dev.yml stop
+            docker-compose -f docker-compose.prod.yml stop
             git pull
-            docker-compose -f docker-compose.dev.yml up -d --build
+            docker-compose -f docker-compose.prod.yml up -d --build
